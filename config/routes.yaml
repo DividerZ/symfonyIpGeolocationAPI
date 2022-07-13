@@ -1,3 +1,4 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+country_code_get:
+    path: /get/{ip}
+    controller: App\Controller\IpController::countryCodeGet
+    methods: GET
