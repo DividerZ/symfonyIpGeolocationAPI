@@ -16,7 +16,8 @@
         "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
         "ext-http": ">=3.0.0",
-        "ext-memcached": ">=2.2.0"
+        "ext-memcached": ">=2.2.0",
+        "ext-apcu": "*"
     },
     "config": {
         "allow-plugins": {
