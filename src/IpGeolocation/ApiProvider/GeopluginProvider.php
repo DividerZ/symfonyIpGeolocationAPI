@@ -18,7 +18,8 @@ class GeopluginProvider extends AbstractProvider {
     }
 
     protected function checkContent(array $response_content) : void {
-        if (empty($response_content['geoplugin_status']) || $response_content['geoplugin_status'] !== 200) {
+        $geoplugin_status = $response_content['geoplugin_status'] ?? null;
+        if (null === $geoplugin_status || (200 > $geoplugin_status || 300 <= $geoplugin_status)) {
             throw new \RuntimeException(sprintf('API provider "%s" returned with error', static::NAME));
         }
     }
