@@ -32,7 +32,7 @@ class IpGeolocationService {
 
     public function get(string $ip) : IpGeolocationItem {
         if (!$this->isValidIp($ip)) {
-            throw new InvalidArgumentException('first argument is not an ip address');
+            throw new InvalidArgumentException('first argument is not an public ip address');
         }
 
         $cache = $this->cacheFactory->getInstance($this->cache_system, static::CACHE_NAMESPACE);
@@ -46,7 +46,7 @@ class IpGeolocationService {
     protected function isValidIp(string $ip) : bool {
         $violation_list = $this->validator->validate($ip, new Assert\Ip(
             null,
-            Assert\Ip::ALL
+            Assert\Ip::ALL_ONLY_PUBLIC
         ));
 
         return $violation_list->count() === 0;
