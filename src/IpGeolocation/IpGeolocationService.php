@@ -4,7 +4,7 @@ namespace App\IpGeolocation;
 
 use App\CacheService\CacheFactory;
 use App\IpGeolocation\ApiProvider\ProviderFactory;
-use http\Exception\InvalidArgumentException;
+use App\IpGeolocation\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
