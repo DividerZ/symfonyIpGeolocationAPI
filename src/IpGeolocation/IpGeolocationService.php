@@ -2,12 +2,17 @@
 
 namespace App\IpGeolocation;
 
+use App\CacheService\CacheFactory;
+use App\IpGeolocation\ApiProvider\ProviderFactory;
+use http\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class IpGeolocationService {
+
+    private const CACHE_NAMESPACE = 'IpGeolocationAPI';
 
     private ValidatorInterface $validator;
     private ProviderFactory $provider_factory;
@@ -25,20 +30,17 @@ class IpGeolocationService {
         $this->provider_name = $app_params->get('ip_geolocation.provider_name');
     }
 
-    public function get(string $ip) : GeolocationIpItem {
+    public function get(string $ip) : IpGeolocationItem {
         if (!$this->isValidIp($ip)) {
-            throw new \RuntimeException('первый аргумент не является ip-адресом');
+            throw new InvalidArgumentException('first argument is not an ip address');
         }
 
-        $data_version = 1.0;
-        $cache = $this->cacheFactory->getInstance($this->cache_system);
+        $cache = $this->cacheFactory->getInstance($this->cache_system, static::CACHE_NAMESPACE);
         $api_provider = $this->provider_factory->getInstance($this->provider_name);
-        $geo_ip_item = $cache->get($ip, function(ItemInterface $item) use ($ip, $api_provider) {
+        return $cache->get($ip, function(ItemInterface $item) use ($ip, $api_provider) {
             $item->expiresAfter($this->cache_lifetime);
             return $api_provider->get($ip);
-        }, $data_version);
-
-        return $geo_ip_item;
+        });
     }
 
     protected function isValidIp(string $ip) : bool {

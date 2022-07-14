@@ -1,4 +1,4 @@
 country_code_get:
-    path: /get/{ip}
+    path: /
     controller: App\Controller\IpController::countryCodeGet
     methods: GET

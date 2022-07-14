@@ -2,7 +2,7 @@
 
 namespace App\IpGeolocation;
 
-class GeolocationIpItem {
+class IpGeolocationItem {
 
     public const FIELD_COUNTRY_CODE = 'country_code';
 

@@ -7,6 +7,8 @@ parameters:
     ip_geolocation.cache_system: '%env(resolve:IP_GEO_CACHE_SYSTEM)%'
     ip_geolocation.cache_lifetime: '%env(resolve:IP_GEO_CACHE_LIFETIME)%'
     ip_geolocation.provider_name: '%env(resolve:IP_GEO_PROVIDER_NAME)%'
+    memcached.host: '%env(resolve:MEMCACHED_HOST)%'
+    memcached.port: '%env(resolve:MEMCACHED_PORT)%'
 
 services:
     # default configuration for services in *this* file
