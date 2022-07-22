@@ -4,8 +4,6 @@ namespace App\IpGeolocation;
 
 class IpGeolocationItem {
 
-    public const FIELD_COUNTRY_CODE = 'country_code';
-
     private string $countryCode = '';
 
     public function setCountryCode(string $country_code) : void {

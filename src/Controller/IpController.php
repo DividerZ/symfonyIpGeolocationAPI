@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\IpGeolocation\IpGeolocationService;
-use http\Exception\InvalidArgumentException;
+use App\IpGeolocation\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,7 +27,7 @@ class IpController {
         } catch (InvalidArgumentException $e) {
             error_log((string) $e);
             return $this->answerFail(400);
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             error_log((string) $e);
             return $this->answerFail(500);
         }
